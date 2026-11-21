@@ -1,0 +1,195 @@
+/* === GLOBAL RESET === */
+html, body {
+  width: 100%;
+  overflow-x: hidden !important;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+section, div, img {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* ========== GLOBAL RESPONSIVE LAYOUT ========== */
+@media (max-width: 1024px) {
+  section {
+    padding: 3rem 1.5rem !important;
+  }
+}
+
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 0.8rem !important;
+    padding: 0.8rem 1rem !important;
+  }
+
+  [data-nav-item="true"] {
+    padding: 0.6rem 0.9rem !important;
+    font-size: 0.9rem !important;
+  }
+
+  section {
+    padding: 3rem 1.2rem !important;
+  }
+
+  .home-grid-container {
+    grid-template-columns: 1fr !important;
+    text-align: center !important;
+    gap: 2rem !important;
+  }
+
+  .home-intro-text {
+    border-left: none !important;
+    padding-left: 0 !important;
+  }
+}
+
+/* ========== EXPERIENCE PAGE FIXES ========== */
+.experience-section {
+  overflow-x: hidden !important;
+}
+
+.experience-section > div {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+}
+
+.experience-card {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  overflow-x: hidden !important;
+}
+
+.experience-category-tag {
+  left: 1rem !important;
+  right: auto !important;
+  max-width: calc(100% - 2rem) !important;
+  box-sizing: border-box !important;
+}
+
+/* ========== MOBILE SCREENS (≤ 480px) ========== */
+@media (max-width: 480px) {
+  h1, h2 {
+    font-size: 1.8rem !important;
+    letter-spacing: -1px !important;
+    line-height: 1.1 !important;
+    word-break: break-word !important;
+  }
+
+  h3 {
+    font-size: 1.2rem !important;
+  }
+
+  p, li, span {
+    font-size: 0.9rem !important;
+    line-height: 1.5 !important;
+  }
+
+  a, button {
+    font-size: 0.85rem !important;
+    padding: 0.6rem 1rem !important;
+  }
+
+  img {
+    max-width: 100% !important;
+    height: auto !important;
+    display: block;
+  }
+
+  .experience-card {
+    padding: 1.2rem !important;
+    border-width: 3px !important;
+  }
+
+  .experience-category-tag {
+    font-size: 0.8rem !important;
+    padding: 0.4rem 0.7rem !important;
+    top: -10px !important;
+    left: 1rem !important;
+  }
+
+  .experience-section {
+    padding: 2.5rem 1rem !important;
+  }
+
+  .home-resume-button {
+    padding: 0.7rem 1rem !important;
+    font-size: 0.8rem !important;
+  }
+}
+
+/* ========== EXTRA SMALL (≤ 375px) ========== */
+@media (max-width: 375px) {
+  h1 {
+    font-size: 1.6rem !important;
+    letter-spacing: -0.5px !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  h2 {
+    font-size: 1.3rem !important;
+  }
+
+  h3 {
+    font-size: 1.05rem !important;
+  }
+
+  .experience-card {
+    padding: 1rem !important;
+  }
+
+  .experience-card li {
+    font-size: 0.85rem !important;
+  }
+
+  .experience-category-tag {
+    font-size: 0.75rem !important;
+    left: 0.8rem !important;
+  }
+
+  nav {
+    gap: 0.5rem !important;
+    flex-wrap: wrap !important;
+  }
+
+  [data-nav-item="true"] {
+    font-size: 0.8rem !important;
+    padding: 0.4rem 0.7rem !important;
+  }
+}
+
+/* ========== ULTRA-SMALL (≤ 325px) ========== */
+@media (max-width: 325px) {
+  h1 {
+    font-size: 1.4rem !important;
+    line-height: 1 !important;
+  }
+
+  h2 {
+    font-size: 1.15rem !important;
+  }
+
+  p, li, span {
+    font-size: 0.8rem !important;
+  }
+
+  .home-resume-button {
+    padding: 0.5rem 0.7rem !important;
+    font-size: 0.75rem !important;
+  }
+
+  nav {
+    padding: 0.5rem !important;
+  }
+
+  [data-nav-item="true"] {
+    font-size: 0.7rem !important;
+    padding: 0.3rem 0.5rem !important;
+  }
+}
