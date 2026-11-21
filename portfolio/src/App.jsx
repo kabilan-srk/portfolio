@@ -8,6 +8,7 @@ import Terminal from './components/Terminal';
 import CommandPalette from './components/CommandPalette';
 import Boot from './components/Boot';
 import { shouldShowBoot, markBootShown } from './lib/bootGate';
+import { buildPaletteItems } from './lib/paletteItems';
 
 export default function App() {
   const [view, setView] = useState('dashboard');
@@ -60,20 +61,16 @@ export default function App() {
   const EMAIL = 'kabilansrkk@gmail.com';
   const flash = (msg) => { setToast(msg); setTimeout(() => setToast(''), 2000); };
 
-  const paletteItems = [
-    ...[['home', 'Home'], ['experience', 'Experience'], ['projects', 'Projects'], ['skills', 'Skills'],
-        ['sre-toolkit', 'SRE Toolkit'], ['learning', 'Learning'], ['contact', 'Contact']]
-      .map(([id, label]) => ({ id: `go-${id}`, group: 'GO TO', label, run: () => scrollToSection(id) })),
-    { id: 'view', group: 'ACTION', label: view === 'terminal' ? 'Switch to dashboard' : 'Switch to terminal view', keywords: 'shell cli gui terminal dashboard', run: toggleView },
-    { id: 'resume', group: 'ACTION', label: 'Open resume', keywords: 'cv', run: () => window.open(portfolioData.personal.resumeUrl, '_blank', 'noopener') },
-    { id: 'email', group: 'ACTION', label: 'Copy email address', keywords: 'contact mail', run: () => {
+  const paletteItems = buildPaletteItems({
+    view,
+    goToSection,
+    toggleView,
+    resumeUrl: portfolioData.personal.resumeUrl,
+    projects: portfolioData.projects,
+    copyEmail: () => {
       navigator.clipboard?.writeText(EMAIL).then(() => flash('EMAIL COPIED'), () => flash('COPY FAILED'));
-    } },
-    ...portfolioData.projects.flatMap(p => [
-      { id: `code-${p.name}`, group: 'PROJECT', label: `${p.name}: source code`, run: () => window.open(p.githubUrl, '_blank', 'noopener') },
-      { id: `live-${p.name}`, group: 'PROJECT', label: `${p.name}: ${(p.liveLabel || 'open').replace(/[[\]]/g, '').toLowerCase()}`, run: () => window.open(p.liveUrl, '_blank', 'noopener') },
-    ]),
-  ];
+    },
+  });
 
   const validateForm = () => {
     const errors = {};

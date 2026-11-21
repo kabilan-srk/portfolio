@@ -201,6 +201,7 @@ button {
     transition: none !important;
   }
   html { scroll-behavior: auto; }
+  .hero-line-1, .hero-line-2, .hero-line-3 { opacity: 1 !important; }
 }
 
 /* ========== DASHBOARD (BENTO) ========== */
@@ -220,3 +221,6 @@ button {
 @media (max-width: 900px) {
   .span-5, .span-7, .span-12 { grid-column: span 12; }
 }
+
+/* ========== ANCHOR OFFSET (fixed nav) ========== */
+section[id] { scroll-margin-top: 4.5rem; }

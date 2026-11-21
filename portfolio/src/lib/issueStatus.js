@@ -22,6 +22,7 @@ export async function fetchIssue({ repo, issue }) {
   });
   if (!res.ok) throw new Error(`github ${res.status}`);
   const j = await res.json();
+  if (!j || (j.state !== 'open' && j.state !== 'closed')) throw new Error('github: unexpected response');
   const data = {
     state: j.state,
     state_reason: j.state_reason,
