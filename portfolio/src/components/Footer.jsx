@@ -46,7 +46,7 @@ export default function Footer({ name }) {
             <Github size={20} />
           </a>
           <a
-            href="mailto:kabilans.26csb@licet.ac.in"
+            href="mailto:kabilansrkk@gmail.com"
             style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}
             onMouseEnter={e => e.currentTarget.style.color = 'var(--accent)'}
             onMouseLeave={e => e.currentTarget.style.color = 'var(--text-muted)'}
