@@ -6,10 +6,10 @@ const fadeUp = { hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0 } };
 export default function LearningJourney({ learning }) {
   return (
     <section id="learning" style={{
-      padding: '5rem 2rem',
-      backgroundColor: 'var(--bg-secondary)'
+      padding: '1.75rem',
+      backgroundColor: 'transparent'
     }}>
-      <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+      <div style={{ maxWidth: 'none', margin: '0 auto' }}>
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -30,7 +30,7 @@ export default function LearningJourney({ learning }) {
           <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', marginBottom: '0.5rem' }}>
             building in public — studying now and what comes next
           </p>
-          <div style={{ width: '40px', height: '3px', backgroundColor: 'var(--accent)', marginBottom: '3rem' }} />
+          <div style={{ width: '40px', height: '3px', backgroundColor: 'var(--accent)', marginBottom: '1.5rem' }} />
         </motion.div>
 
         <div style={{

@@ -2,14 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { portfolioData } from './data/portfolioData';
 import { useScrollSpy } from './hooks/useScrollSpy';
 import Navigation from './components/Navigation';
-import Home from './components/Home';
-import Experience from './components/Experience';
-import Projects from './components/Projects';
-import Skills from './components/Skills';
-import Contact from './components/Contact';
-import SREToolkit from './components/SREToolkit';
-import LearningJourney from './components/LearningJourney';
 import Footer from './components/Footer';
+import Dashboard from './components/Dashboard';
 import Terminal from './components/Terminal';
 import CommandPalette from './components/CommandPalette';
 
@@ -146,22 +140,11 @@ export default function App() {
         }}>{toast}</div>
       )}
 
-      <main>
-        <Home personal={portfolioData.personal} onOpenTerminal={() => setTerminalOpen(true)} />
-        <Experience experience={portfolioData.experience} />
-        <Projects projects={portfolioData.projects} />
-        <Skills skills={portfolioData.skills} />
-        <SREToolkit sreToolkit={portfolioData.sreToolkit} />
-        <LearningJourney learning={portfolioData.learning} />
-<Contact
-          formData={formData}
-          formErrors={formErrors}
-          isSubmitting={isSubmitting}
-          submitStatus={submitStatus}
-          handleInputChange={handleInputChange}
-          handleSubmit={handleSubmit}
-        />
-      </main>
+      <Dashboard
+        data={portfolioData}
+        onOpenTerminal={() => setTerminalOpen(true)}
+        contactProps={{ formData, formErrors, isSubmitting, submitStatus, handleInputChange, handleSubmit }}
+      />
 
       <Footer name={portfolioData.personal.name} />
     </div>

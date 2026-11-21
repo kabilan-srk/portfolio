@@ -7,7 +7,7 @@ export default function Home({ personal, onOpenTerminal }) {
       <section
         id="home"
         style={{
-          minHeight: '100vh',
+          minHeight: 'min(100vh, 760px)',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',

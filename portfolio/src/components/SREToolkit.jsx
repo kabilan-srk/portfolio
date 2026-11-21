@@ -14,11 +14,10 @@ const ORDERED_KEYS = ['infrastructure', 'observability', 'cicd', 'languages', 'd
 export default function SREToolkit({ sreToolkit }) {
   return (
     <section id="sre-toolkit" style={{
-      minHeight: '50vh',
-      padding: '5rem 2rem',
-      backgroundColor: 'var(--bg-primary)'
+      padding: '1.75rem',
+      backgroundColor: 'transparent'
     }}>
-      <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+      <div style={{ maxWidth: 'none', margin: '0 auto' }}>
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -38,7 +37,7 @@ export default function SREToolkit({ sreToolkit }) {
           <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', marginBottom: '0.5rem' }}>
             tools i work with and am actively learning
           </p>
-          <div style={{ width: '40px', height: '3px', backgroundColor: 'var(--accent)', marginBottom: '3rem' }} />
+          <div style={{ width: '40px', height: '3px', backgroundColor: 'var(--accent)', marginBottom: '1.5rem' }} />
         </motion.div>
 
         <div style={{

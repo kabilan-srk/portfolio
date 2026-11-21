@@ -85,18 +85,17 @@ export default function Skills({ skills }) {
 
   return (
     <section id="skills" style={{
-      minHeight: '60vh',
-      padding: '5rem 2rem',
-      backgroundColor: 'var(--bg-secondary)'
+      padding: '1.75rem',
+      backgroundColor: 'transparent'
     }}>
-      <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+      <div style={{ maxWidth: 'none', margin: '0 auto' }}>
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.5 }}
         >
-          <div className="section-label">CAPABILITY</div>
+          <div className="section-label">CAPABILITY · SELF-RATED</div>
           <h2 style={{
             fontSize: 'clamp(1.6rem, 4vw, 2.4rem)',
             fontWeight: 700,
@@ -106,7 +105,7 @@ export default function Skills({ skills }) {
           }}>
             [SKILLS]
           </h2>
-          <div style={{ width: '40px', height: '3px', backgroundColor: 'var(--accent)', marginBottom: '3rem' }} />
+          <div style={{ width: '40px', height: '3px', backgroundColor: 'var(--accent)', marginBottom: '1.5rem' }} />
         </motion.div>
 
         <div ref={ref} style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>

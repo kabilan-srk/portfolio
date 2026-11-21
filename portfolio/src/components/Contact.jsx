@@ -19,11 +19,10 @@ const inputBase = {
 export default function Contact({ formData, formErrors, isSubmitting, submitStatus, handleInputChange, handleSubmit }) {
   return (
     <section id="contact" style={{
-      minHeight: '60vh',
-      padding: '5rem 2rem',
-      backgroundColor: 'var(--bg-secondary)'
+      padding: '1.75rem',
+      backgroundColor: 'transparent'
     }}>
-      <div style={{ maxWidth: '680px', margin: '0 auto' }}>
+      <div style={{ maxWidth: 'none', margin: '0 auto' }}>
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -40,7 +39,7 @@ export default function Contact({ formData, formErrors, isSubmitting, submitStat
           }}>
             [CONTACT]
           </h2>
-          <div style={{ width: '40px', height: '3px', backgroundColor: 'var(--accent)', marginBottom: '3rem' }} />
+          <div style={{ width: '40px', height: '3px', backgroundColor: 'var(--accent)', marginBottom: '1.5rem' }} />
         </motion.div>
 
         <motion.form

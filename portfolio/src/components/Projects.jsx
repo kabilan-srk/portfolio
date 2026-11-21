@@ -48,11 +48,10 @@ function IssueMeta({ project }) {
 export default function Projects({ projects }) {
   return (
     <section id="projects" style={{
-      minHeight: '60vh',
-      padding: '5rem 2rem',
-      backgroundColor: 'var(--bg-primary)'
+      padding: '1.75rem',
+      backgroundColor: 'transparent'
     }}>
-      <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+      <div style={{ maxWidth: 'none', margin: '0 auto' }}>
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -73,7 +72,7 @@ export default function Projects({ projects }) {
           <div style={{
             width: '40px', height: '3px',
             backgroundColor: 'var(--accent)',
-            marginBottom: '3rem'
+            marginBottom: '1.5rem'
           }} />
         </motion.div>
 
