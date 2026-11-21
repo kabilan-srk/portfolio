@@ -232,7 +232,7 @@ export default function Home({ personal, onOpenTerminal }) {
                 <div className="scan-overlay" style={{
                   position: 'absolute',
                   inset: 0,
-                  background: 'linear-gradient(180deg, transparent 50%, rgba(255,0,0,0.03) 50%)',
+                  background: 'linear-gradient(180deg, transparent 50%, rgba(255,176,0,0.03) 50%)',
                   backgroundSize: '100% 4px',
                   pointerEvents: 'none',
                   opacity: 0.6
@@ -242,7 +242,7 @@ export default function Home({ personal, onOpenTerminal }) {
                   left: 0,
                   right: 0,
                   height: '2px',
-                  background: 'linear-gradient(90deg, transparent, rgba(255,0,0,0.6), transparent)',
+                  background: 'linear-gradient(90deg, transparent, rgba(255,176,0,0.6), transparent)',
                   animation: 'scan-line 3s linear infinite',
                   pointerEvents: 'none'
                 }} />

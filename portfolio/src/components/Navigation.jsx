@@ -106,7 +106,7 @@ export default function Navigation({ activeSection, scrollToSection, name, onTog
               marginLeft: '0.5rem'
             }}
             onMouseEnter={e => {
-              e.currentTarget.style.background = 'rgba(255,0,0,0.2)';
+              e.currentTarget.style.background = 'rgba(255,176,0,0.2)';
               e.currentTarget.style.boxShadow = 'var(--accent-glow)';
             }}
             onMouseLeave={e => {

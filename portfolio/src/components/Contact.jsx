@@ -173,7 +173,7 @@ export default function Contact({ formData, formErrors, isSubmitting, submitStat
               gap: '0.5rem',
               width: '100%',
               padding: '0.85rem',
-              backgroundColor: isSubmitting ? 'rgba(255,0,0,0.5)' : 'var(--accent)',
+              backgroundColor: isSubmitting ? 'rgba(255,176,0,0.5)' : 'var(--accent)',
               color: '#000',
               border: 'none',
               fontSize: '0.8rem',

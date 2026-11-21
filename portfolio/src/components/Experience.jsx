@@ -65,7 +65,7 @@ export default function Experience({ experience }) {
                   backgroundColor: isActive ? 'var(--accent)' : 'var(--text-faint)',
                   border: '2px solid var(--bg-secondary)',
                   boxShadow: isActive ? '0 0 0 2px var(--border-accent)' : 'none',
-                  animation: isActive ? 'pulse-red 2s ease-in-out infinite' : 'none'
+                  animation: isActive ? 'pulse-accent 2s ease-in-out infinite' : 'none'
                 }} />
 
                 <div className="experience-card" style={{

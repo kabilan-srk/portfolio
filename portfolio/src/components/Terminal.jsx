@@ -293,7 +293,7 @@ export default function Terminal({ onClose, scrollToSection, portfolioData }) {
           height: 'min(560px, 85vh)',
           backgroundColor: '#0a0c10',
           border: '1px solid var(--border-accent)',
-          boxShadow: '0 0 60px rgba(255,0,0,0.15), 0 24px 80px rgba(0,0,0,0.8)',
+          boxShadow: '0 0 60px rgba(255,176,0,0.15), 0 24px 80px rgba(0,0,0,0.8)',
           zIndex: 9999,
           display: 'flex',
           flexDirection: 'column',

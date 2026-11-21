@@ -57,10 +57,10 @@ function SkillBar({ skill, inView }) {
         <div style={{
           height: '100%',
           width: inView ? `${skill.level}%` : '0%',
-          backgroundColor: skill.level < 30 ? 'rgba(255,0,0,0.45)' : 'var(--accent)',
+          backgroundColor: skill.level < 30 ? 'rgba(255,176,0,0.45)' : 'var(--accent)',
           transition: 'width 1.1s cubic-bezier(0.4, 0, 0.2, 1)',
           borderRadius: '3px',
-          boxShadow: skill.level >= 30 ? '0 0 8px rgba(255,0,0,0.4)' : 'none'
+          boxShadow: skill.level >= 30 ? '0 0 8px rgba(255,176,0,0.4)' : 'none'
         }} />
       </div>
     </div>
