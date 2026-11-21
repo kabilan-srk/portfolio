@@ -59,7 +59,7 @@ export const portfolioData = {
   sreToolkit: {
     infrastructure: ["GCP", "KUBERNETES", "DOCKER", "HELM", "TERRAFORM"],
     observability: ["CLOUD MONITORING", "CLOUD LOGGING"],
-    cicd: ["JENKINS", "GITHUB ACTIONS"],
+    cicd: ["JENKINS", "GITHUB ACTIONS", "RUNDECK", "ATLANTIS"],
     languages: ["PYTHON", "BASH", "JAVASCRIPT"],
     databases: ["MONGODB ATLAS", "SNOWFLAKE"]
   },
