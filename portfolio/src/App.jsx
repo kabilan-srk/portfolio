@@ -45,7 +45,7 @@ export default function App() {
     return () => window.removeEventListener('keydown', handler);
   }, []);
 
-  const EMAIL = 'kabilan@kissflow.com';
+  const EMAIL = 'kabilansrkk@gmail.com';
   const flash = (msg) => { setToast(msg); setTimeout(() => setToast(''), 2000); };
 
   const paletteItems = [

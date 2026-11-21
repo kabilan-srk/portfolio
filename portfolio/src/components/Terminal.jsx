@@ -119,7 +119,7 @@ function buildCommandMap(portfolioData, scrollToSection, onClose) {
     contact: () => [
       { type: 'output', text: '— CONTACT ────────────────────' },
       { type: 'output', text: '  github:  github.com/KABILANSRK' },
-      { type: 'output', text: '  email:   kabilan@kissflow.com' },
+      { type: 'output', text: '  email:   kabilansrkk@gmail.com' },
       { type: 'output', text: '  phone:   +91 available on request' },
     ],
 
