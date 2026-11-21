@@ -1,7 +1,8 @@
 // src/hooks/useScrollSpy.js
 import { useState, useEffect } from 'react';
+import { SECTIONS } from '../lib/sections';
 
-const SECTION_IDS = ['home', 'experience', 'projects', 'skills', 'sre-toolkit', 'learning', 'contact'];
+const SECTION_IDS = SECTIONS.map(s => s.id);
 
 export function useScrollSpy() {
   const [activeSection, setActiveSection] = useState(SECTION_IDS[0]);

@@ -1,15 +1,8 @@
 import React, { useState } from 'react';
 import { TerminalIcon, Menu, X } from 'lucide-react';
+import { SECTIONS } from '../lib/sections';
 
-const NAV_SECTIONS = [
-  { label: 'HOME',      id: 'home' },
-  { label: 'EXP',       id: 'experience' },
-  { label: 'PROJECTS',  id: 'projects' },
-  { label: 'SKILLS',    id: 'skills' },
-  { label: 'TOOLKIT',   id: 'sre-toolkit' },
-  { label: 'LEARNING',  id: 'learning' },
-  { label: 'CONTACT',   id: 'contact' }
-];
+const NAV_SECTIONS = SECTIONS;
 
 export default function Navigation({ activeSection, scrollToSection, name, onToggleTerminal }) {
   const [mobileOpen, setMobileOpen] = useState(false);
