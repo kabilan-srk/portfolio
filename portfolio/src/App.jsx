@@ -6,9 +6,22 @@ import Footer from './components/Footer';
 import Dashboard from './components/Dashboard';
 import Terminal from './components/Terminal';
 import CommandPalette from './components/CommandPalette';
+import Boot from './components/Boot';
+import { shouldShowBoot, markBootShown } from './lib/bootGate';
 
 export default function App() {
-  const [terminalOpen, setTerminalOpen] = useState(false);
+  const [view, setView] = useState('dashboard');
+  const [booting, setBooting] = useState(() => {
+    let storage;
+    try { storage = window.sessionStorage; } catch { storage = { getItem() { throw new Error('blocked'); } }; }
+    const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+    return shouldShowBoot({ storage, reducedMotion });
+  });
+  const finishBoot = () => {
+    try { markBootShown(window.sessionStorage); } catch { /* storage unavailable */ }
+    setBooting(false);
+  };
+  const toggleView = () => setView(v => (v === 'terminal' ? 'dashboard' : 'terminal'));
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [toast, setToast] = useState('');
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
@@ -23,12 +36,17 @@ export default function App() {
     if (element) element.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const goToSection = (sectionId) => {
+    setView('dashboard');
+    requestAnimationFrame(() => requestAnimationFrame(() => scrollToSection(sectionId)));
+  };
+
   // Ctrl+` keyboard shortcut for terminal
   useEffect(() => {
     const handler = (e) => {
       if (e.ctrlKey && e.key === '`') {
         e.preventDefault();
-        setTerminalOpen(o => !o);
+        toggleView();
       }
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
@@ -46,7 +64,7 @@ export default function App() {
     ...[['home', 'Home'], ['experience', 'Experience'], ['projects', 'Projects'], ['skills', 'Skills'],
         ['sre-toolkit', 'SRE Toolkit'], ['learning', 'Learning'], ['contact', 'Contact']]
       .map(([id, label]) => ({ id: `go-${id}`, group: 'GO TO', label, run: () => scrollToSection(id) })),
-    { id: 'terminal', group: 'ACTION', label: 'Open terminal', keywords: 'shell cli', run: () => setTerminalOpen(true) },
+    { id: 'view', group: 'ACTION', label: view === 'terminal' ? 'Switch to dashboard' : 'Switch to terminal view', keywords: 'shell cli gui terminal dashboard', run: toggleView },
     { id: 'resume', group: 'ACTION', label: 'Open resume', keywords: 'cv', run: () => window.open(portfolioData.personal.resumeUrl, '_blank', 'noopener') },
     { id: 'email', group: 'ACTION', label: 'Copy email address', keywords: 'contact mail', run: () => {
       navigator.clipboard?.writeText(EMAIL).then(() => flash('EMAIL COPIED'), () => flash('COPY FAILED'));
@@ -119,13 +137,15 @@ export default function App() {
         activeSection={activeSection}
         scrollToSection={scrollToSection}
         name={portfolioData.personal.name}
-        onToggleTerminal={() => setTerminalOpen(o => !o)}
+        onToggleTerminal={toggleView}
       />
 
-      {terminalOpen && (
+      {booting && <Boot onDone={finishBoot} />}
+
+      {view === 'terminal' && (
         <Terminal
-          onClose={() => setTerminalOpen(false)}
-          scrollToSection={scrollToSection}
+          onExit={() => setView('dashboard')}
+          goToSection={goToSection}
           portfolioData={portfolioData}
         />
       )}
@@ -142,7 +162,7 @@ export default function App() {
 
       <Dashboard
         data={portfolioData}
-        onOpenTerminal={() => setTerminalOpen(true)}
+        onOpenTerminal={() => setView('terminal')}
         contactProps={{ formData, formErrors, isSubmitting, submitStatus, handleInputChange, handleSubmit }}
       />
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { X } from 'lucide-react';
-import { fetchIssue, deriveStatus, timeAgo } from '../lib/issueStatus';
+import { runCommand, COMMANDS, GOTO_TARGETS, CAT_TARGETS } from '../lib/terminalCommands';
 
 const ASCII_BANNER = `
  ██╗  ██╗ █████╗ ██████╗ ██╗██╗      █████╗ ███╗  ██╗
@@ -18,162 +18,10 @@ const ASCII_BANNER = `
  ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝
 `.trim();
 
-const COMMANDS = ['help', 'whoami', 'about', 'ls', 'goto', 'cat', 'projects', 'skills', 'status', 'contact', 'open', 'clear', 'exit', 'q'];
-const GOTO_TARGETS = ['home', 'experience', 'projects', 'skills', 'toolkit', 'learning', 'contact'];
-const CAT_TARGETS = ['experience', 'projects'];
-
-const normalize = (str) => str.toLowerCase().replace(/[-_]+/g, ' ').trim();
-const findProject = (projects, name) => {
-  const n = normalize(name);
-  return projects.find(p => normalize(p.name) === n) || projects.find(p => normalize(p.name).includes(n));
-};
-
-async function projectStatus(portfolioData) {
-  const tracked = portfolioData.projects.filter(p => p.statusSource);
-  if (tracked.length === 0) return [{ type: 'output', text: 'no tracked projects.' }];
-  const lines = [];
-  for (const p of tracked) {
-    try {
-      const issue = await fetchIssue(p.statusSource);
-      const { label } = deriveStatus(issue);
-      lines.push({ type: 'output', text: '' });
-      lines.push({ type: 'output', text: `┌─ ${p.name}`, accent: true });
-      lines.push({ type: 'output', text: `│  status:   ${label}` });
-      lines.push({ type: 'output', text: `│  issue:    ${p.statusSource.repo}#${p.statusSource.issue} (${issue.state})` });
-      lines.push({ type: 'output', text: `│  activity: ${issue.comments} comments, updated ${timeAgo(issue.updated_at)}` });
-      lines.push({ type: 'output', text: '└────────────────────────────────' });
-    } catch {
-      lines.push({ type: 'error', text: `${p.name}: could not reach GitHub API (rate limit or offline)` });
-    }
-  }
-  return lines;
-}
-
-function buildCommandMap(portfolioData, scrollToSection, onClose) {
-  return {
-    help: () => [
-      { type: 'output', text: '┌─ AVAILABLE COMMANDS ────────────────────────────────' },
-      { type: 'output', text: '│  help              — show this menu' },
-      { type: 'output', text: '│  whoami / about    — who is Kabilan?' },
-      { type: 'output', text: '│  ls                — list portfolio sections' },
-      { type: 'output', text: '│  goto <section>    — navigate to a section' },
-      { type: 'output', text: '│  cat experience    — display work experience' },
-      { type: 'output', text: '│  cat projects      — display projects' },
-      { type: 'output', text: '│  projects          — same as cat projects' },
-      { type: 'output', text: '│  skills            — display skills' },
-      { type: 'output', text: '│  status            — live hosting status (GitHub)' },
-      { type: 'output', text: '│  contact           — display contact info' },
-      { type: 'output', text: '│  open <project>    — open project live URL' },
-      { type: 'output', text: '│  clear             — clear terminal' },
-      { type: 'output', text: '│  exit / q          — close terminal' },
-      { type: 'output', text: '└─────────────────────────────────────────────────────' },
-    ],
-
-    whoami: () => [
-      { type: 'output', text: `name:     ${portfolioData.personal.name}` },
-      { type: 'output', text: `role:     ${portfolioData.personal.title}` },
-      { type: 'output', text: `summary:  ${portfolioData.personal.intro}` },
-      { type: 'output', text: `status:   ${portfolioData.personal.subIntro}` },
-    ],
-
-    about: () => buildCommandMap(portfolioData, scrollToSection, onClose).whoami(),
-
-    ls: () => [
-      { type: 'output', text: 'home/  experience/  projects/  skills/  toolkit/  learning/  contact/' },
-    ],
-
-    'cat experience': () => portfolioData.experience.flatMap(exp => [
-      { type: 'output', text: '' },
-      { type: 'output', text: `┌─ ${exp.organization} — ${exp.role}`, accent: true },
-      { type: 'output', text: `│  period: ${exp.duration}` },
-      { type: 'output', text: `│  role:   ${exp.category}` },
-      ...exp.achievements.map(a => ({ type: 'output', text: `│  > ${a.toLowerCase()}` })),
-      { type: 'output', text: '└────────────────────────────────' },
-    ]),
-
-    'cat projects': () => portfolioData.projects.flatMap(p => [
-      { type: 'output', text: '' },
-      { type: 'output', text: `┌─ ${p.name}`, accent: true },
-      { type: 'output', text: `│  ${p.description.toLowerCase()}` },
-      { type: 'output', text: `│  tech:   ${p.technologies.join(', ')}` },
-      { type: 'output', text: `│  ${(p.liveLabel || '[open]').replace(/[[\]]/g, '').toLowerCase()}:   ${p.liveUrl}` },
-      { type: 'output', text: `│  code:   ${p.githubUrl}` },
-      { type: 'output', text: '└────────────────────────────────' },
-    ]),
-
-    projects: () => buildCommandMap(portfolioData, scrollToSection, onClose)['cat projects'](),
-
-    status: () => projectStatus(portfolioData),
-
-    skills: () => {
-      const lines = [{ type: 'output', text: '— SKILLS ————————————' }];
-      portfolioData.skills.sre.forEach(s => {
-        const filled = Math.round(s.level / 5);
-        const empty = 20 - filled;
-        const bar = '█'.repeat(filled) + '░'.repeat(empty);
-        lines.push({ type: 'output', text: `  ${s.name.padEnd(14)} [${bar}] ${s.level}%` });
-      });
-      return lines;
-    },
-
-    contact: () => [
-      { type: 'output', text: '— CONTACT ────────────────────' },
-      { type: 'output', text: '  github:  github.com/KABILANSRK' },
-      { type: 'output', text: '  email:   kabilansrkk@gmail.com' },
-      { type: 'output', text: '  phone:   +91 available on request' },
-    ],
-
-    clear: () => '__CLEAR__',
-
-    exit: () => { onClose(); return []; },
-    q:    () => { onClose(); return []; },
-  };
-}
-
-function runCommand(input, portfolioData, scrollToSection, onClose) {
-  const raw = input.trim().toLowerCase();
-  const cmdMap = buildCommandMap(portfolioData, scrollToSection, onClose);
-
-  // goto command
-  if (raw.startsWith('goto ')) {
-    const section = raw.slice(5).trim();
-    const sectionMap = {
-      home: 'home', experience: 'experience', exp: 'experience',
-      projects: 'projects', skills: 'skills', toolkit: 'sre-toolkit',
-      'sre-toolkit': 'sre-toolkit', learning: 'learning', contact: 'contact'
-    };
-    const id = sectionMap[section];
-    if (id) {
-      scrollToSection(id);
-      onClose();
-      return [{ type: 'output', text: `navigating to ${section}...` }];
-    }
-    return [{ type: 'error', text: `unknown section: ${section}. try: home, experience, projects, skills, toolkit, learning, contact` }];
-  }
-
-  // open command
-  if (raw.startsWith('open ')) {
-    const name = raw.slice(5).trim();
-    const project = findProject(portfolioData.projects, name);
-    if (project) {
-      window.open(project.liveUrl, '_blank');
-      return [{ type: 'output', text: `opening ${project.name}...` }];
-    }
-    const names = portfolioData.projects.map(p => p.name.toLowerCase()).join(', ');
-    return [{ type: 'error', text: `unknown project: ${name}. available: ${names}` }];
-  }
-
-  if (cmdMap[raw]) return cmdMap[raw]();
-
-  if (raw === '') return [];
-
-  return [{ type: 'error', text: `command not found: ${raw}. type 'help' for available commands.` }];
-}
-
-export default function Terminal({ onClose, scrollToSection, portfolioData }) {
+export default function Terminal({ onExit, goToSection, portfolioData }) {
   const [history, setHistory] = useState([
     { type: 'banner', text: ASCII_BANNER },
-    { type: 'output', text: "Type 'help' for available commands. Press ESC to close." },
+    { type: 'output', text: "Type 'help' for available commands. Press ESC or click [GUI] for the dashboard." },
     { type: 'output', text: '' },
   ]);
   const [input, setInput] = useState('');
@@ -192,11 +40,11 @@ export default function Terminal({ onClose, scrollToSection, portfolioData }) {
 
   useEffect(() => {
     const handler = (e) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') onExit();
     };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
-  }, [onClose]);
+  }, [onExit]);
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
@@ -208,7 +56,7 @@ export default function Terminal({ onClose, scrollToSection, portfolioData }) {
         setHistoryIdx(-1);
       }
 
-      const result = runCommand(cmd, portfolioData, scrollToSection, onClose);
+      const result = runCommand(cmd, portfolioData, goToSection, onExit);
 
       if (result instanceof Promise) {
         setHistory(prev => [...prev, prompt, { type: 'output', text: 'fetching...' }]);
@@ -274,26 +122,12 @@ export default function Terminal({ onClose, scrollToSection, portfolioData }) {
 
   return (
     <>
-      <div
-        onClick={onClose}
-        style={{
-          position: 'fixed', inset: 0,
-          backgroundColor: 'rgba(0,0,0,0.7)',
-          zIndex: 9998,
-        }}
-      />
 
       <div
         style={{
           position: 'fixed',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: 'min(900px, 92vw)',
-          height: 'min(560px, 85vh)',
-          backgroundColor: '#0a0c10',
-          border: '1px solid var(--border-accent)',
-          boxShadow: '0 0 60px rgba(255,176,0,0.15), 0 24px 80px rgba(0,0,0,0.8)',
+          inset: 0,
+          backgroundColor: 'var(--bg-primary)',
           zIndex: 9999,
           display: 'flex',
           flexDirection: 'column',
@@ -320,7 +154,7 @@ export default function Terminal({ onClose, scrollToSection, portfolioData }) {
             </span>
           </div>
           <button
-            onClick={onClose}
+            onClick={onExit}
             style={{
               background: 'none',
               border: '1px solid var(--border)',
@@ -343,7 +177,7 @@ export default function Terminal({ onClose, scrollToSection, portfolioData }) {
               e.currentTarget.style.borderColor = 'var(--border)';
             }}
           >
-            <X size={12} /> ESC
+            <X size={12} /> [GUI]
           </button>
         </div>
 

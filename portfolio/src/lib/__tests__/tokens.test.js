@@ -1,8 +1,10 @@
+/* global process */
 import { describe, it, expect } from 'vitest';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
-const SRC = join(__dirname, '..', '..');
+// vitest runs from the app root (portfolio/)
+const SRC = join(process.cwd(), 'src');
 
 function rootTokens() {
   const css = readFileSync(join(SRC, 'index.css'), 'utf8');
