@@ -70,7 +70,7 @@ Motion: subtle fade/slide on scroll via existing framer-motion; hover states on 
 
 ## Open item
 
-Kabilan mentioned "the ppt design" and has not attached or described it. If a deck or images are supplied, palette, type and layout cues from it override the starting values above.
+Resolved: there is no PPT or deck. The starting palette and layout values above are final unless contrast checks force a tweak.
 
 ## Calls made after the builder check (designer's calls, flagged for review)
 
