@@ -78,7 +78,7 @@ export default function Projects({ projects }) {
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))',
           gap: '1.5rem'
         }}>
           {projects.map((project, idx) => (
