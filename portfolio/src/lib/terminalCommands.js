@@ -90,11 +90,8 @@ function buildCommandMap(portfolioData, goToSection, onExit) {
 
     skills: () => {
       const lines = [{ type: 'output', text: '— SKILLS ————————————' }];
-      portfolioData.skills.sre.forEach(s => {
-        const filled = Math.round(s.level / 5);
-        const empty = 20 - filled;
-        const bar = '█'.repeat(filled) + '░'.repeat(empty);
-        lines.push({ type: 'output', text: `  ${s.name.padEnd(14)} [${bar}] ${s.level}%` });
+      portfolioData.skills.tiers.forEach(t => {
+        lines.push({ type: 'output', text: `  ${t.label.padEnd(14)}${t.items.join(', ')}` });
       });
       return lines;
     },

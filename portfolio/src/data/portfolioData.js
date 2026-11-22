@@ -46,22 +46,11 @@ export const portfolioData = {
     }
   ],
   skills: {
-    sre: [
-      { name: "LINUX", level: 50 },
-      { name: "DOCKER", level: 20 },
-      { name: "KUBERNETES", level: 10 },
-      { name: "GCP", level: 25 },
-      { name: "HELM", level: 10 },
-      { name: "TERRAFORM", level: 10 },
-      { name: "JENKINS", level: 15 }
-    ],
-  },
-  sreToolkit: {
-    infrastructure: ["GCP", "KUBERNETES", "DOCKER", "HELM", "TERRAFORM"],
-    observability: ["CLOUD MONITORING", "CLOUD LOGGING"],
-    cicd: ["JENKINS", "GITHUB ACTIONS", "RUNDECK", "ATLANTIS"],
-    languages: ["PYTHON", "BASH", "JAVASCRIPT"],
-    databases: ["MONGODB ATLAS", "SNOWFLAKE"]
+    tiers: [
+      { id: "daily", label: "DAILY", items: ["GCP", "CLOUD LOGGING", "CLOUD MONITORING", "IAM"] },
+      { id: "work", label: "USED AT WORK", items: ["JENKINS", "RUNDECK", "ATLANTIS", "HELM", "KUBERNETES", "SNOWFLAKE", "MONGODB ATLAS", "MAKE"] },
+      { id: "learning", label: "LEARNING", items: ["TERRAFORM", "DOCKER", "PYTHON", "BASH", "JAVASCRIPT", "GITHUB ACTIONS"] }
+    ]
   },
   learning: {
     current: [
