@@ -36,7 +36,7 @@ export default function Footer({ name }) {
           marginBottom: '1.2rem'
         }}>
           <a
-            href="https://github.com/KABILANSRK"
+            href="https://github.com/kabilan-srk"
             target="_blank"
             rel="noopener noreferrer"
             style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}

@@ -101,7 +101,7 @@ function buildCommandMap(portfolioData, goToSection, onExit) {
 
     contact: () => [
       { type: 'output', text: '— CONTACT ────────────────────' },
-      { type: 'output', text: '  github:  github.com/KABILANSRK' },
+      { type: 'output', text: '  github:  github.com/kabilan-srk' },
       { type: 'output', text: '  email:   kabilansrkk@gmail.com' },
       { type: 'output', text: '  phone:   +91 available on request' },
     ],
