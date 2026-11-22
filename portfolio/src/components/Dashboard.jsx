@@ -15,10 +15,8 @@ export default function Dashboard({ data, contactProps, onOpenTerminal }) {
         <div className="bento-cell span-12"><StatusStrip /></div>
         <div className="bento-cell panel span-5"><Experience experience={data.experience} /></div>
         <div className="bento-cell panel span-7"><Projects projects={data.projects} /></div>
-        <div className="bento-cell panel span-7">
-          <Skills skills={data.skills} />
-        </div>
-        <div className="bento-cell panel span-5"><LearningJourney learning={data.learning} /></div>
+        <div className="bento-cell panel span-12"><Skills skills={data.skills} /></div>
+        <div className="bento-cell panel span-12"><LearningJourney learning={data.learning} /></div>
         <div className="bento-cell panel span-12"><Contact {...contactProps} /></div>
       </div>
     </main>

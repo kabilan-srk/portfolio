@@ -218,8 +218,16 @@ button {
 .span-5 { grid-column: span 5; }
 .span-7 { grid-column: span 7; }
 .span-12 { grid-column: span 12; }
+.row-2 { grid-row: span 2; }
+/* Projects panel stretches to the row height; the media area absorbs the extra space */
+.bento-cell > #projects { height: 100%; display: flex; flex-direction: column; }
+#projects > div { flex: 1; display: flex; flex-direction: column; }
+#projects > div > div:last-child { flex: 1; grid-auto-rows: 1fr; }
+#projects .project-card { height: 100%; }
+#projects .project-media { flex: 1 1 auto; }
 @media (max-width: 900px) {
   .span-5, .span-7, .span-12 { grid-column: span 12; }
+  .row-2 { grid-row: auto; }
 }
 
 /* ========== ANCHOR OFFSET (fixed nav) ========== */

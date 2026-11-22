@@ -29,7 +29,7 @@ export default function Skills({ skills }) {
           <div style={{ width: '40px', height: '3px', backgroundColor: 'var(--accent)', marginBottom: '1.5rem' }} />
         </motion.div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.5rem', alignItems: 'start' }}>
           {tiers.map((tier, i) => {
             const accent = tier.id === 'daily';
             return (

@@ -99,7 +99,7 @@ export default function Projects({ projects }) {
               }}
             >
               {/* Image */}
-              <div style={{ position: 'relative', overflow: 'hidden' }}>
+              <div style={{ position: 'relative', overflow: 'hidden', flex: '1 1 auto', display: 'flex', flexDirection: 'column' }} className="project-media">
                 {project.thumbnail ? (
                   <img
                     src={project.thumbnail}
@@ -116,7 +116,8 @@ export default function Projects({ projects }) {
                 ) : (
                   <div style={{
                     width: '100%',
-                    height: '180px',
+                    minHeight: '180px',
+                    flex: 1,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -139,7 +140,7 @@ export default function Projects({ projects }) {
               </div>
 
               {/* Content */}
-              <div style={{ padding: '1.4rem', flex: 1, display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
+              <div style={{ padding: '1.4rem', flex: '0 0 auto', display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
                 <h3 style={{
                   fontSize: '1.05rem',
                   fontWeight: 700,
@@ -152,8 +153,7 @@ export default function Projects({ projects }) {
                 <p style={{
                   fontSize: '0.8rem',
                   color: 'var(--text-muted)',
-                  lineHeight: 1.6,
-                  flex: 1
+                  lineHeight: 1.6
                 }}>
                   {project.description}
                 </p>
