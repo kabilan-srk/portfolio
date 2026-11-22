@@ -228,6 +228,13 @@ button {
 @media (max-width: 900px) {
   .span-5, .span-7, .span-12 { grid-column: span 12; }
   .row-2 { grid-row: auto; }
+  .bento { padding: 0 0.75rem 2rem; }
+  .bento-cell > section { padding: 1.1rem !important; }
+  .experience-card { padding: 1.1rem 1rem !important; }
+  .exp-active-badge { position: static !important; width: fit-content; margin-bottom: 0.75rem; }
+}
+@media (max-width: 480px) {
+  .scroll-hint { display: none !important; }
 }
 
 /* ========== ANCHOR OFFSET (fixed nav) ========== */

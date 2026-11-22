@@ -253,6 +253,7 @@ export default function Home({ personal, onOpenTerminal }) {
 
         {/* Scroll indicator */}
         <div
+          className="scroll-hint"
           style={{
             position: 'absolute',
             bottom: '2rem',

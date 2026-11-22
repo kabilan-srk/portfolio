@@ -75,7 +75,7 @@ export default function Experience({ experience }) {
                 }}>
                   {/* Active badge */}
                   {isActive && (
-                    <div style={{
+                    <div className="exp-active-badge" style={{
                       position: 'absolute',
                       top: '1rem',
                       right: '1rem',
